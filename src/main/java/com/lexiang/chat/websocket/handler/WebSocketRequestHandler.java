@@ -6,18 +6,21 @@ import com.lexiang.chat.websocket.ChannelManager;
 import com.lexiang.chat.websocket.ChatRequestContent;
 import com.lexiang.chat.websocket.ChatType;
 import com.lexiang.wlutils.netty.websocket.tranfer.AbstractNettyWebSocket;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketFrame;
+import org.springframework.stereotype.Component;
 
+@Component
+@ChannelHandler.Sharable
 public class WebSocketRequestHandler extends SimpleChannelInboundHandler<WebSocketFrame> {
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, WebSocketFrame webSocketFrame) throws Exception {
         socketDo(ctx,webSocketFrame);
-
     }
 
     private void socketDo(ChannelHandlerContext ctx, WebSocketFrame frame){
