@@ -1,29 +1,40 @@
 package com.lexiang.chat.controller;
 
 import com.google.common.collect.Maps;
-import com.lexiang.chat.pojo.User;
+import com.lexiang.chat.entity.User;
+import com.lexiang.chat.service.IUserService;
 import com.lexiang.oauth.service.LoginService;
 import com.lexiang.oauth.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("user")
 public class ApplicationCtrl{
 
-    @Autowired
+    @Resource
     private LoginService loginService;
 
-    @Autowired
+    @Resource
     private RedisService redisService;
 
-    @RequestMapping("/login")
-    public void login(){
+    @Resource
+    private IUserService userService;
 
-        int a = 1;
-        redisService.set("dasd","da");
-        loginService.login(Maps.newHashMap(),"chat",new User());
+
+
+
+    @RequestMapping("/login")
+    public void login(@RequestBody User user){
+
+        User users = userService.selectUser(user);
+        String login = loginService.login(Maps.newHashMap(), user.getId().toString(), users);
+
+
 
     }
 
