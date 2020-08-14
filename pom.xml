@@ -34,6 +34,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.lexiang</groupId>
+            <artifactId>wl-utils</artifactId>
+            <version>1.0.3-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>20.0</version>
@@ -54,12 +60,16 @@
         </dependency>
 
 
-
-
         <dependency>
             <groupId>com.wangle</groupId>
             <artifactId>wl-oauth-boot-starter</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
+            <version>1.0.5-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.wangle</groupId>
+            <artifactId>wl-swagger-boot-starter</artifactId>
+            <version>1.0.7-SNAPSHOT</version>
         </dependency>
 
         <dependency>

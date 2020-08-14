@@ -12,7 +12,7 @@ spring:
     port: 6379
     password:
   datasource:
-    driver-class -name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://106.12.193.26:3306/chat?characterEncoding=utf-8&useSSL=false
     username: root
     password: root
@@ -36,7 +36,17 @@ mybatis-plus:
   #放在resource目录 classpath:/mapper/*Mapper.xml
   mapper-locations:
     - classpath:mapper/*Mapper.xml
+swagger:
+  api-tittle: "wl-netty-chat文档"
+  api-des: "文档介绍"
+  packages: com.lexiang.chat.controller
+  version: 1.0.2
+  writer-name: "王乐"
+  type: "service"
 
 
-
+oauth:
+  enable-login: true
+  enable-s-s-o: true
+  service-key: "chat"
 

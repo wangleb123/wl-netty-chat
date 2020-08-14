@@ -12,9 +12,11 @@ import java.io.Serializable;
 import com.baomidou.mybatisplus.annotations.Version;
 
 import com.lexiang.oauth.WLUser;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.springframework.stereotype.Component;
 
 /**
  * <p>
@@ -26,6 +28,7 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(chain = true)
+@Component
 public class User extends Model<User> implements WLUser {
 
     private static final long serialVersionUID = 1L;
@@ -36,16 +39,20 @@ public class User extends Model<User> implements WLUser {
      * 创建时间
      */
     @TableField("create_date")
+    @ApiModelProperty("创建时间")
     private Date createDate;
     /**
      * 用户性别
      */
     @TableField("gender")
+    @ApiModelProperty("用户性别")
     private Integer gender;
+
     /**
      * 用户头像
      */
     @TableField("avatar_url")
+    @ApiModelProperty("用户头像")
     private String avatarUrl;
     /**
      * 修改时间
