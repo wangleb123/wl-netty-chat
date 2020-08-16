@@ -19,6 +19,10 @@ spring:
   jackson:
     date-format: yyyy-MM-dd
     time-zone: GMT+8
+  mvc:
+    static-path-pattern: /**
+  resources:
+    static-locations: /static/,classpath:/resources/
 
 
 

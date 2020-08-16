@@ -1,5 +1,6 @@
 package com.lexiang.chat.service;
 
+import com.lexiang.chat.entity.User;
 import com.lexiang.oauth.WLUser;
 import com.lexiang.oauth.adaptor.UserInfoAdaptor;
 import com.lexiang.oauth.annotation.CheckUser;
@@ -10,9 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 
 @Component
-public class UserOauth implements UserInfoAdaptor {
+public class UserOauth implements UserInfoAdaptor<User> {
+
     @Override
-    public void userHandler(HttpServletRequest request, Method method, CheckUser checkUser, WLUser loginVO) {
+    public void userHandler(HttpServletRequest request, Method method, CheckUser checkUser, User loginVO) {
 
     }
 }
