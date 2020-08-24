@@ -24,13 +24,14 @@ public class WebSocketRequestHandler extends SimpleChannelInboundHandler<WebSock
     }
 
     private void socketDo(ChannelHandlerContext ctx, WebSocketFrame frame){
-
         AbstractNettyWebSocket nettyWebSocket = new AbstractNettyWebSocket();
-
+        //socket预关闭
         nettyWebSocket.handsShakerCloseFuture(ChannelManager.webSocketHandShakerMap.get(ctx.channel().id().asLongText()),ctx.channel(),frame);
         //文本协议
         if(frame instanceof TextWebSocketFrame){
-            ChatRequestContent requestContent = JSON.parseObject(((TextWebSocketFrame) frame).text(), ChatRequestContent.class);
+            String text = ((TextWebSocketFrame) frame).text();
+            Object parse = JSON.parse(text);
+            ChatRequestContent requestContent = JSON.parseObject(JSON.toJSONString(parse),ChatRequestContent.class);
             if( null == requestContent){
                 nettyWebSocket.sendMessage(ctx.channel(),"参数为null");
                 return;
@@ -40,6 +41,7 @@ public class WebSocketRequestHandler extends SimpleChannelInboundHandler<WebSock
                 nettyWebSocket.sendMessage(ctx.channel(),"非法的socket类型");
                 return;
             }
+
             switch (chatType){
                 case REGISTER:
                     int a = 1;
@@ -48,7 +50,6 @@ public class WebSocketRequestHandler extends SimpleChannelInboundHandler<WebSock
                     int b = 2;
                     break;
             }
-
         }
         //二进制文件协议
         if(frame instanceof BinaryWebSocketFrame){
@@ -56,9 +57,5 @@ public class WebSocketRequestHandler extends SimpleChannelInboundHandler<WebSock
         }
     }
 
-    public static void main(String[] args) {
-        ChatRequestContent requestContent = JSON.parseObject(null, ChatRequestContent.class);
-        System.out.println(requestContent);
 
-    }
 }

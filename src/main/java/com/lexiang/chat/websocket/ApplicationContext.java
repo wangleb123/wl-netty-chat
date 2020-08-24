@@ -37,6 +37,8 @@ public class ApplicationContext {
      *      1. 释放Netty Websocket相关连接；
      *      2. 关闭Netty Websocket服务器线程。（强行关闭，是否有必要？）
      */
+
+
     @PreDestroy
     public void close() {
         log.info("正在释放Netty Websocket相关连接...");

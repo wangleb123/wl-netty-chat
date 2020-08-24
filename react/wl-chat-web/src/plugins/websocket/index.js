@@ -2,29 +2,22 @@
 module.exports = class webSocket {
 
  
+   
+    
     constructor(param){
         this.param = param;
         this.reconnectCount = 0;
         this.socket = null;
         this.taskRemainInterval = null;
         this.isSucces = true;
-        WEBSOCKET = "WebSocket";
-        MOZWEBSOCKET = "MozWebSocket";
-        SOCKJS = "SockJS"
+     
     }
 
     connecton = () =>{
         let {socketUrl,timeout = 0} = this.param;
-        if(this.WEBSOCKET in window){
-            console.log(this.WEBSOCKET)
+        if("WebSocket" in window){
+            console.log("WebSocket")
             this.socket = new WebSocket(socketUrl);
-        }
-        else if(this.MOZWEBSOCKET in window){
-            console.log(MOZWEBSOCKET);
-            this.socket = new MozWebSocket(socketUrl);
-        }else{
-            console.log(SockJS);
-            this.socket = new SockJS(socketUrl);
         }
 
         this.socket.onopen = this.onopen;

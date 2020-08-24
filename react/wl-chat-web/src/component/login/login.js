@@ -1,36 +1,62 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect, useState } from 'react'
 import { Form, Input, Checkbox, Button } from 'antd'
 import 'antd/dist/antd.css';
-import { Icon } from '@ant-design/compatible';
-import cookie from 'react-cookies'
 import { auth_login } from '../../plugins/axios'
 import axios from 'axios';
 import qs from 'qs'
+import Socket from "../../plugins/websocket/index"
 import './index.less'
+
+
+
 
 
 const FormLogin = () => {
     const [form] = Form.useForm();
-    const handlSubmit = () => {
-
+    const [socket,setSocket] = useState(null);
+    const handlSubmit = FormLogin => {
         axios
             .post("http://localhost:7510/user/login", JSON.stringify({phoneNumber: form.getFieldValue("phoneNumber"), passWord:form.getFieldValue("password") }),{
                 headers: {
                     'Content-Type': 'application/json;charset=UTF-8'
                 }
             })
-            .then(res => {
-                
-
-            })
-            .catch(err => {
-                alert('err');
-                console.log(err)
-            })
+            .then(res => { })
+            .catch(err => {alert('err');console.log(err)})
 
     }
-  
+    useEffect(() =>{
+        let socket = new Socket({
+            socketUrl: 'ws://localhost:1235/web',
+            timeout: 5000,
+            socketMessage: (receive) => {
+                console.log(receive);  //后端返回的数据，渲染页面
+            },
+            socketClose: (msg) => {
+                console.log(msg);
+            },
+            socketError: () => {
+                console.log('连接建立失败');
+            },
+            socketOpen: () => {
+                console.log('连接建立成功');
+                // 心跳机制 定时向后端发数据
+                let taskRemindInterval = setInterval(() => {
+                    this.socket.sendMessage({ "msgType": 0 })
+                }, 30000)
+            }
+        });
+        socket.connecton()
+　　　　　//重试创建socket连接
+        try {
+            socket.connection();
+        } catch (e) {
+            // 捕获异常，防止js error
+            // donothing
+        }
+    })
 
+   
     return (
        
         <div className="login">
@@ -46,7 +72,7 @@ const FormLogin = () => {
                                 ]
                             }
                         >
-                            <Input prefix={< Icon type="user" style={{ fontSize: 11 }} />} size='large' placeholder="请输入管理员账号" />
+                            <Input  size='large' placeholder="请输入管理员账号" />
                         </Form.Item>
                         <Form.Item name="password" initialValue="123456" rules={
                             [
@@ -57,7 +83,7 @@ const FormLogin = () => {
                             ]}>
 
                             <Input
-                                prefix={< Icon type="lock" style={{ fontSize: 11 }} />}
+                                 
                                 type="password"
                                 size='large'
                                 placeholder="请输入对应管理员密码" />
