@@ -1,11 +1,14 @@
 package com.lexiang.chat.websocket;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import com.lexiang.chat.ChatApplication;
 import com.lexiang.chat.websocket.server.WebSocketServer;
+import com.lexiang.wlutils.netty.websocket.WebSocket;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.websocketx.WebSocketServerHandshaker;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -44,4 +47,6 @@ public class ApplicationContext {
         log.info("正在释放Netty Websocket相关连接...");
         executor.shutdown();
     }
+
+
 }

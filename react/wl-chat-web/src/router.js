@@ -5,6 +5,8 @@ import Login from "./component/login/login";
 import Persion from "./component/perison/persion";
 import Room from "./component/room/room";
 import Admin from './component/admin';
+import Demo1 from './component/reduxs/demo1';
+
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={props => (
@@ -26,8 +28,8 @@ class NettyChat extends Component {
                     <PrivateRoute path='/room' component={Room}/>
                     <PrivateRoute path='/persion' component={Persion}/>
                     <PrivateRoute path='/admin' component={Admin}/>
+                    <PrivateRoute path='/demo1' component={Demo1}/>
                 </App> 
-        
             </BrowserRouter>
         )
     }

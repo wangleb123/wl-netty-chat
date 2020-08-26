@@ -1,9 +1,7 @@
 
 module.exports = class webSocket {
 
- 
-   
-    
+
     constructor(param){
         this.param = param;
         this.reconnectCount = 0;
